@@ -2,4 +2,18 @@ media:
   input: assets/photos
   output: /assets/photos
 
-content: []
+content:
+  - name: homepage
+    label: Homepage
+    type: file
+    path: homepage.json
+    fields:
+      - name: heading
+        label: Main Heading
+        type: string
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: description
+        label: Description
+        type: text
