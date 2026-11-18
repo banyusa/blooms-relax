@@ -1,0 +1,5 @@
+media:
+  input: assets/photos
+  output: /assets/photos
+
+content: []
