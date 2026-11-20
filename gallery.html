@@ -77,6 +77,10 @@
           img.src = photo;
           img.alt = "Bloom's Relax landscaping project";
           img.loading = 'lazy';
+          img.style.cursor = 'pointer';
+img.addEventListener('click', () => {
+  window.open(img.src, '_blank');
+});
           grid.appendChild(img);
         });
       })
