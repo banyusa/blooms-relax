@@ -1,3 +1,15 @@
 {
-  "title": "Bloom's Relax Photo Gallery"
+  "title": "Bloom's Relax Photo Gallery",
+  "photos": [
+    "/assets/photos/unnamed (6).webp",
+    "/assets/photos/design.webp",
+    "/assets/photos/front-landscape.webp",
+    "/assets/photos/front-walk.webp",
+    "/assets/photos/garden.webp",
+    "/assets/photos/outdoor-kitchen.webp",
+    "/assets/photos/patio.webp",
+    "/assets/photos/retaining-wall.webp",
+    "/assets/photos/stone-patio.webp",
+    "/assets/photos/unnamed (5).webp"
+  ]
 }
