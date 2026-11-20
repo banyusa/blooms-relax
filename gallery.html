@@ -1,1 +1,62 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photo Gallery | Bloom's Relax</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .gallery-page {
+      max-width: 1200px;
+      margin: auto;
+      padding: 45px 20px;
+    }
+    .gallery-page h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .photo-grid img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <main class="gallery-page">
+    <h1 id="gallery-title">Bloom's Relax Photo Gallery</h1>
+    <div id="photo-grid" class="photo-grid"></div>
+  </main>
+
+  <script>
+    fetch('/gallery.json')
+      .then(response => {
+        if (!response.ok) throw new Error('Gallery unavailable');
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('gallery-title').textContent =
+          data.title || "Bloom's Relax Photo Gallery";
+
+        const grid = document.getElementById('photo-grid');
+
+        (data.photos || []).forEach(photo => {
+          const img = document.createElement('img');
+          img.src = photo;
+          img.alt = "Bloom's Relax landscaping project";
+          img.loading = 'lazy';
+          grid.appendChild(img);
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
+</body>
+</html>
+
