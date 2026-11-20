@@ -77,9 +77,19 @@
           img.src = photo;
           img.alt = "Bloom's Relax landscaping project";
           img.loading = 'lazy';
-          img.style.cursor = 'pointer';
+          img.style.cursor = 'zoom-in';
 img.addEventListener('click', () => {
-  window.open(img.src, '_blank');
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:zoom-out;padding:20px;box-sizing:border-box;';
+
+  const largeImg = document.createElement('img');
+  largeImg.src = img.src;
+  largeImg.alt = img.alt;
+  largeImg.style.cssText = 'max-width:95%;max-height:90vh;object-fit:contain;';
+
+  overlay.appendChild(largeImg);
+  overlay.addEventListener('click', () => overlay.remove());
+  document.body.appendChild(overlay);
 });
           grid.appendChild(img);
         });
