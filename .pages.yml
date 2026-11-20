@@ -17,3 +17,17 @@ content:
       - name: description
         label: Description
         type: text
+        
+  - name: gallery
+    label: Photo Gallery
+    type: file
+    path: gallery.json
+    fields:
+      - name: title
+        label: Gallery Title
+        type: string
+      - name: photos
+        label: Gallery Photos
+        type: image
+        options:
+          multiple: true
