@@ -77,19 +77,64 @@
           img.src = photo;
           img.alt = "Bloom's Relax landscaping project";
           img.loading = 'lazy';
-          img.style.cursor = 'zoom-in';
+        img.style.cursor = 'zoom-in';
+
 img.addEventListener('click', () => {
+  const photos = Array.from(grid.querySelectorAll('img'));
+  let current = photos.indexOf(img);
+
   const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:zoom-out;padding:20px;box-sizing:border-box;';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;z-index:9999;padding:50px;box-sizing:border-box;';
 
   const largeImg = document.createElement('img');
-  largeImg.src = img.src;
-  largeImg.alt = img.alt;
-  largeImg.style.cssText = 'max-width:95%;max-height:90vh;object-fit:contain;';
+  largeImg.style.cssText = 'max-width:90%;max-height:85vh;object-fit:contain;';
+
+  function showPhoto() {
+    largeImg.src = photos[current].src;
+    largeImg.alt = photos[current].alt;
+  }
+
+  function makeButton(symbol, position, action) {
+    const btn = document.createElement('button');
+    btn.textContent = symbol;
+    btn.style.cssText = 'position:absolute;' + position + ';background:rgba(0,0,0,0.5);color:white;border:0;border-radius:6px;padding:12px;font-size:28px;cursor:pointer;z-index:1;';
+    btn.addEventListener('click', action);
+    overlay.appendChild(btn);
+  }
+
+  function closeViewer() {
+    overlay.remove();
+    document.removeEventListener('keydown', handleKeys);
+  }
+
+  function handleKeys(event) {
+    if (event.key === 'Escape') closeViewer();
+    if (event.key === 'ArrowRight') nextPhoto();
+    if (event.key === 'ArrowLeft') previousPhoto();
+  }
+
+  function nextPhoto() {
+    current = (current + 1) % photos.length;
+    showPhoto();
+  }
+
+  function previousPhoto() {
+    current = (current - 1 + photos.length) % photos.length;
+    showPhoto();
+  }
+
+  makeButton('×', 'top:15px;right:20px', closeViewer);
+  makeButton('❮', 'left:15px;top:50%', previousPhoto);
+  makeButton('❯', 'right:15px;top:50%', nextPhoto);
 
   overlay.appendChild(largeImg);
-  overlay.addEventListener('click', () => overlay.remove());
+  overlay.addEventListener('click', event => {
+    if (event.target === overlay) closeViewer();
+  });
+
   document.body.appendChild(overlay);
+  document.addEventListener('keydown', handleKeys);
+  showPhoto();
 });
           grid.appendChild(img);
         });
